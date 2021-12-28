@@ -1,3 +1,39 @@
+** New ReadMe File ***
+
+Here is the revised project.
+
+List of changes that have done in the project according to what you asked:
+
+1. Unused statements have been deleted.
+
+2. I have uploaded the project to Github.
+
+3. The "Tables" file changed to "Models".
+
+4. Changed the project name to a better one.
+
+5. Moved the 'Methods" file to the DataAccess layer.
+
+6. I added a Max and Min Length to the fields and I turned them over a required fields in Creating account process.
+
+7. The files in  "_CreateNewNuGetPackage" and "DoNotModify" Folders can't be delete. I tried to but the project crashed.
+
+8. I split the CRUD File into many classes for each model.
+
+9. I have deleted the not acceptable code in UserForm, and I have wrote another code that access the DB in the Data Access layer to do what required.
+
+10. Empty Events have been deleted.
+
+11. System.ArgumentNullException Error Fixed.
+
+12. When entering a password displays asterisks + Show Password checkbox Added.
+
+13. The Datagridview immediately refresh when canceling any order.
+
+
+********************************
+
+
 #Flower Shop Project
 
 This project contains registration and login to an online flowers shop, all the details are saved in Sql server.
