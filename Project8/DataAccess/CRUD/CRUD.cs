@@ -132,14 +132,14 @@ namespace HackerU_MidProject2.Database
                     dbContext.Add(Order);
 
 
-                    //var conn = dbContext.Database.GetDbConnection();
-                    //conn.Open();
-                    //dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Orders ON;");
+                    var conn = dbContext.Database.GetDbConnection();
+                    conn.Open();
+                    dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Orders ON;");
 
-                    //dbContext.SaveChanges();
-                    //dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Orders off;");
+                    dbContext.SaveChanges();
+                    dbContext.Database.ExecuteSqlCommand("SET IDENTITY_INSERT Orders off;");
 
-                    //conn.Close();
+                    conn.Close();
                 }
 
             }
