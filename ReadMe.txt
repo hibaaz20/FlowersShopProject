@@ -70,5 +70,5 @@ This project contains registration and login to an online flowers shop, all the 
 
 # Admin details: 
 username: hiba
-pw: 123
+pw: 12345
 # you can add users by click the Create Account button and fill the fields.
