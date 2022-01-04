@@ -1,5 +1,7 @@
 ﻿using HackerU_MidProject1;
-using HackerU_MidProject2.Database;
+using Project8.DataAccess.CommandDesignPattern;
+using Project8.DataAccess.CommandDesignPattern.UserCommands;
+using Project8.DataAccess.Methods.CheckLength;
 using Project8.Methods;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UpdatePWCommands = Project8.DataAccess.CommandDesignPattern.UserCommands.UpdatePWCommands;
 
 namespace Project8
 {
@@ -31,18 +34,43 @@ namespace Project8
 
             if (checkIfuser.IfUserExist(userName) )
             {
-                CRUD.UsersClass.Update(userName, PW);
+                if (Password_textBox.Text.Length < 5 )
+                {
+                    MessageBox.Show("Password must be at least 5 characters and less than 15");
+                }
+                else
+                {
+                    UpdatePWCommands command = new UpdatePWCommands();
+                    ICommand updatecmd = new UpdateCommand(command, userName,PW);
+                    UpdateCMD updateCmd = new UpdateCMD(updatecmd);
 
-                MessageBox.Show("Password Updated Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Hide();
+                    updateCmd.update();
+
+                    MessageBox.Show("Password Updated Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Hide();
+                }
+                
 
             }
 
             else if (checkIfuser.IfAdminExist(userName))
             {
-                CRUD.AdminsClass.AUpdate(userName, PW);
-                MessageBox.Show("Password Updated Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Hide();
+                if (Password_textBox.Text.Length < 5)
+                {
+                    MessageBox.Show("Password must be at least 5 characters and less than 15");
+                    
+                }
+                else
+                {
+
+                    AdminCommand command = new AdminCommand();
+                    ICommand updatecmd = new AUpdateCommand(command, userName, PW);
+                    updatecmd.Execute();
+
+                    MessageBox.Show("Password Updated Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Hide();
+                }
+               
 
             }
 

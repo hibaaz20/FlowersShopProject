@@ -1,4 +1,5 @@
-﻿using HackerU_MidProject2.Database;
+﻿using Project8.DataAccess.CommandDesignPattern;
+using Project8.DataAccess.CommandDesignPattern.AdminsCommands;
 using Project8.Database;
 using System;
 using System.Collections.Generic;
@@ -43,10 +44,20 @@ namespace Project8.Forms.AdminForms
             {
                 if (cho.ICheckIfOrderExist(int.Parse(textBox1.Text)))
                 {
-                    CRUD.OrdersClass.Deleteorder(int.Parse(textBox1.Text));
+                    DeleteOrdersCommands command = new DeleteOrdersCommands();
+                    ICommand deleteorder = new DeleteeOrderCommand(command, int.Parse(textBox1.Text));
+                    DeleteOrdersCMD deleteOrders = new DeleteOrdersCMD(deleteorder);
+                    deleteOrders.delete();
+
+
                     MessageBox.Show("Order Canceled!");
 
-                    CRUD.OrdersClass.AdminShowOrders(datagridView);
+
+                    AdminsShowOrders command2 = new AdminsShowOrders();
+                    ICommand showorder = new AdminShowOrderCommand(command2, datagridView);
+                    AdminShowOrdersCMD showOrdersCMD = new AdminShowOrdersCMD(showorder);
+                    deleteOrders.delete();
+
 
                     this.Hide();
 
@@ -69,9 +80,6 @@ namespace Project8.Forms.AdminForms
             CenterToScreen();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+      
     }
 }

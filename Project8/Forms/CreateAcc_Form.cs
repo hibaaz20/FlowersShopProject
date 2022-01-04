@@ -1,4 +1,5 @@
-﻿using HackerU_MidProject2.Database;
+﻿using Project8.DataAccess.CommandDesignPattern;
+using Project8.DataAccess.CommandDesignPattern.UserCommands;
 using Project8.DataAccess.Methods.CheckLength;
 using Project8.DataAccess.Methods.CheckValidation;
 using Project8.Methods;
@@ -12,13 +13,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Project8.Forms
 {
     
     public partial class CreateAcc_Form : Form
     {
-        
+       
+
 
         public CreateAcc_Form()
         {
@@ -41,6 +44,10 @@ namespace Project8.Forms
             string Lname = Lastname_textBox.Text;
             string userName = Username_textBox.Text;
             string pw = Password_TextBox.Text;
+
+            AddUserCommands command = new AddUserCommands();
+            ICommand addcommand = new AddCommand(command, Fname, Lname, userName, pw);
+            AddUserCMD crud = new AddUserCMD(addcommand);
 
 
             CreateAccMethods cam = new CreateAccMethods();
@@ -87,7 +94,7 @@ namespace Project8.Forms
             }
             else if (CheckPasswordLength.PLength(Password_TextBox.Text) == false)
             {
-                MessageBox.Show("Password must be at least 5 characters and less than 20");
+                MessageBox.Show("Password must be at least 5 characters and less than 15");
             }
             
 
@@ -112,7 +119,8 @@ namespace Project8.Forms
 
             else
             {
-                CRUD.UsersClass.Add(Fname, Lname, userName, pw);
+                crud.add();
+
                 MessageBox.Show("You are a member now!");
                 MainLoginForm mf = new MainLoginForm();
                 this.Hide();

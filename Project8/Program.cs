@@ -1,5 +1,4 @@
-﻿using HackerU_MidProject2.Database;
-using Project8.Methods;
+﻿using Project8.Methods;
 using System;
 using System.Windows.Forms;
 
@@ -17,7 +16,7 @@ namespace Project8
             string cmdText4 = " insert into Flowers (FlowerId,FlowerType) values (4,'Buttercup')";
             string cmdText5 = " insert into Flowers (FlowerId,FlowerType) values (5,'Crocus')";
 
-            string cmdTextAdmin = " insert into Admins (AdminName,AdminPassword) values ('hiba',123)";
+            string cmdTextAdmin = " insert into Admins (AdminName,AdminPassword,FirstName,LastName) values ('hiba',123,'hiba','azzam')";
 
 
             if (IfRecordExist(1) == false)

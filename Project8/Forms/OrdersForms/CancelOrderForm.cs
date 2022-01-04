@@ -1,4 +1,4 @@
-﻿using HackerU_MidProject2.Database;
+﻿using Project8.DataAccess.CommandDesignPattern;
 using Project8.Database;
 using System;
 using System.Collections.Generic;
@@ -40,11 +40,15 @@ namespace Project8.Forms.UserForms
             {
                 if (cho.ICheckIfOrderExist(int.Parse(textBox1.Text)))
                 {
-                    CRUD.OrdersClass.Deleteorder(int.Parse(textBox1.Text));
+
+                    DeleteOrdersCommands command = new DeleteOrdersCommands();
+                    ICommand DeleteOrder = new DeleteeOrderCommand(command, int.Parse(textBox1.Text));
+                    DeleteOrdersCMD deleteorder= new DeleteOrdersCMD(DeleteOrder);
 
                     MessageBox.Show("Order Canceled!");
 
-                    CRUD.OrdersClass.ShowOrders(username,datagridView);
+                    deleteorder.delete();
+
                     this.Hide();
 
                 }

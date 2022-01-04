@@ -1,4 +1,5 @@
-﻿using HackerU_MidProject2.Database;
+﻿using Project8.DataAccess.CommandDesignPattern;
+using Project8.DataAccess.CommandDesignPattern.OrdersCommands;
 using Project8.Database;
 using System;
 using System.Collections.Generic;
@@ -106,7 +107,12 @@ namespace Project8.Forms.AdminForms
                     quantity = int.Parse(QuantitytextBox1.Text);
                     orderId = int.Parse(orderid);
 
-                    CRUD.OrdersClass.UpdateOrder(orderId, FlowerType, FlowerColor, quantity);
+                    UpdateOrderCommands updateOrder = new UpdateOrderCommands();
+                    ICommand update = new UpdateOrderCommand(updateOrder, orderId, FlowerType, FlowerColor, quantity);
+                    UpdateOrdersCMD updateOrders = new UpdateOrdersCMD(update);
+                    updateOrders.update();
+
+
                     MessageBox.Show("Your order updated");
                     this.Hide();
 

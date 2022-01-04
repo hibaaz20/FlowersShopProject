@@ -1,5 +1,7 @@
-﻿using HackerU_MidProject2.Database;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
+using Project8.DataAccess.CommandDesignPattern;
+using Project8.DataAccess.CommandDesignPattern.OrdersCommands;
+using Project8.DataAccess.CommandDesignPattern.UserCommands;
 using Project8.Database;
 using Project8.Methods;
 using System;
@@ -55,11 +57,12 @@ namespace Project8.Forms.UserForms
             {
                 CheckOrders cho = new CheckOrders();
 
-           
+
 
                 conn.Open();
                 if (cho.IsUserHasOrders(username))
-                {     var dataAdapter = new SqlDataAdapter(sqlCommand, c);
+                {
+                    var dataAdapter = new SqlDataAdapter(sqlCommand, c);
                     using (SqlCommand cmd = new SqlCommand(sqlCommand, conn))
                     {
 
@@ -101,15 +104,21 @@ namespace Project8.Forms.UserForms
 
         private void DeleteAccount_Button_Click(object sender, EventArgs e)
         {
-            DialogResult result =  MessageBox.Show("Are you sure you want to delete your account","Deleting account",MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation);
+            DialogResult result = MessageBox.Show("Are you sure you want to delete your account", "Deleting account", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
             if (result == DialogResult.Yes)
             {
-                CRUD.UsersClass.Delete(username, password);
+                DeleteUserCommands command = new DeleteUserCommands();
+                ICommand deletecmd = new DeleteCommand(command, username, password );
+                DeleteCMD deleteCMD = new DeleteCMD(deletecmd);
+                deleteCMD.delete();
+
+
                 MessageBox.Show("Your account has been deleted");
                 this.Hide();
 
             }
-            
+
         }
 
         private void CancelOrder_button_Click(object sender, EventArgs e)
@@ -123,6 +132,7 @@ namespace Project8.Forms.UserForms
 
         private void UserForm_Load(object sender, EventArgs e)
         {
+            CenterToParent();
         }
 
         private void ShowOrderDetailsbutton_Click(object sender, EventArgs e)
@@ -191,7 +201,7 @@ namespace Project8.Forms.UserForms
         }
 
         private void button5_Click(object sender, EventArgs e)
-        {  
+        {
             CheckOrders ch = new CheckOrders();
             string day = dateTimePicker1.Value.Day.ToString();
             string month = dateTimePicker1.Value.Month.ToString();
@@ -212,7 +222,11 @@ namespace Project8.Forms.UserForms
 
             else
             {
-                CRUD.OrdersClass.FilterOrdersByUserName(FilterDate, username, dataGridView1);
+
+                FilterOrdersCommands filterOrders = new FilterOrdersCommands();
+                ICommand filter = new UserFilterOrderCommand(filterOrders,FilterDate,username,dataGridView1);
+                UserilterOrdersCMD filterOrderCommand = new UserilterOrdersCMD(filter);
+                filterOrderCommand.filter();
             }
         }
     }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Project8.Migrations
 {
-    public partial class Project8 : Migration
+    public partial class FlowersShopProject : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,10 +11,10 @@ namespace Project8.Migrations
                 name: "Admins",
                 columns: table => new
                 {
-                    AdminName = table.Column<string>(nullable: false),
-                    AdminPassword = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
+                    AdminName = table.Column<string>(maxLength: 10, nullable: false),
+                    AdminPassword = table.Column<string>(maxLength: 15, nullable: false),
+                    FirstName = table.Column<string>(maxLength: 10, nullable: false),
+                    LastName = table.Column<string>(maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,10 +54,10 @@ namespace Project8.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserName = table.Column<string>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    UserPassword = table.Column<string>(nullable: true)
+                    UserName = table.Column<string>(maxLength: 10, nullable: false),
+                    FirstName = table.Column<string>(maxLength: 10, nullable: false),
+                    LastName = table.Column<string>(maxLength: 10, nullable: false),
+                    UserPassword = table.Column<string>(maxLength: 15, nullable: false)
                 },
                 constraints: table =>
                 {

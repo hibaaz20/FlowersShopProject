@@ -1,4 +1,5 @@
-﻿using HackerU_MidProject2.Database;
+﻿using Project8.DataAccess.CommandDesignPattern;
+using Project8.DataAccess.CommandDesignPattern.OrdersCommands;
 using Project8.Database;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace Project8.Forms.UserForms
         static string username;
         static string FlowerType;
         static string FlowerColor;
+
+      
 
         public AddOrderForm()
         {
@@ -98,6 +101,9 @@ namespace Project8.Forms.UserForms
             int num;
             bool isQuantityInt = int.TryParse(QuantitytextBox1.Text, out num);
             int quantity;
+
+          
+
             if (string.IsNullOrEmpty(QuantitytextBox1.Text))
             {
                 MessageBox.Show("Please Fill The Quantity Textbox", "Quantity textbox is empty", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -112,7 +118,12 @@ namespace Project8.Forms.UserForms
 
                     if (quantity > 0)
                     {
-                        CRUD.OrdersClass.AddOrder(username, orderid, FlowerType, FlowerColor, quantity);
+                        AddOrderCommands command = new AddOrderCommands();
+                        ICommand addOrder = new AddOrderCommand(command, username, orderid, FlowerType, FlowerColor, quantity);
+                        AddOrdersCMD ordersCMD = new AddOrdersCMD(addOrder);
+
+                        ordersCMD.add();
+
                         MessageBox.Show("We received your order!");
 
                     }

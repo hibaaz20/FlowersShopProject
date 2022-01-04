@@ -1,4 +1,5 @@
-﻿using HackerU_MidProject2.Database;
+﻿using Project8.DataAccess.CommandDesignPattern;
+using Project8.DataAccess.CommandDesignPattern.OrdersCommands;
 using Project8.Methods;
 using System;
 using System.Collections.Generic;
@@ -109,7 +110,12 @@ namespace Project8.Forms.AdminForms
 
                     if (quantity > 0)
                     {
-                        CRUD.OrdersClass.AddOrder(username, orderid, FlowerType, FlowerColor, quantity);
+                        AddOrderCommands command = new AddOrderCommands();
+                        ICommand addorder = new AddOrderCommand(command, username, orderid, FlowerType, FlowerColor, quantity);
+                        AddOrdersCMD ordersCMD = new AddOrdersCMD(addorder);
+                        ordersCMD.add();
+
+
                         MessageBox.Show($"Order has added to user {username}!");
 
                     }

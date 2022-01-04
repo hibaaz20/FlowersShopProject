@@ -12,7 +12,7 @@ namespace HackerU_MidProject2.Tables
       
         public string UserName { get; set; }
         
-  [Key]
+         [Key]
         public int OrderId { get; set; }
         public string ItemName { get; set; }
         public string ItemColor { get; set; }

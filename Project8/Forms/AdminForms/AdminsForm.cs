@@ -1,5 +1,6 @@
-﻿using HackerU_MidProject2.Database;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.Data.SqlClient;
+using Project8.DataAccess.CommandDesignPattern;
+using Project8.DataAccess.CommandDesignPattern.AdminsCommands;
 using Project8.Database;
 using Project8.Forms.AdminForms;
 using Project8.Methods;
@@ -198,9 +199,11 @@ namespace Project8.Forms
             string year = dateTimePicker1.Value.Year.ToString();
             string FilterDate = $"{year}/{month}/{day}";
 
-            CRUD.OrdersClass.FilterOrders(FilterDate, dataGridView1);
 
-
+            AdminFilterOrdersCommands filterOrders = new AdminFilterOrdersCommands();
+            ICommand filter = new AdminsFilterOrderCommand(filterOrders, FilterDate, dataGridView1);
+            AdminFilterOrdersCMD ordersCMD = new AdminFilterOrdersCMD(filter);
+            ordersCMD.adminfilter();
 
         }
 

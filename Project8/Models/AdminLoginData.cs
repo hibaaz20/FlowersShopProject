@@ -9,10 +9,16 @@ namespace HackerU_MidProject2.Tables
 {
     public class AdminLoginData
     {
-     [Key]
+        [Key, MaxLength(10), Required]
         public string AdminName { get; set; }
+
+        [MaxLength(15), MinLength(5), Required]
         public string AdminPassword { get; set; }
+
+        [MaxLength(10), Required]
         public string FirstName { get; set; }
+
+        [MaxLength(10), Required]
         public string LastName { get; set; }
 
     }
